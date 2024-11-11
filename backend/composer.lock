@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b7d8a0adeeddd34c453a665bb45bef1",
+    "content-hash": "75ea4ebe0e1f2bf76346e5adfad7391f",
     "packages": [
         {
             "name": "brick/math",
@@ -2890,6 +2890,39 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.12.4"
             },
             "time": "2024-06-10T01:18:23+00:00"
+        },
+        {
+            "name": "qtvhao/device-access-control",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qtvhao/device-access-control.git",
+                "reference": "0e83646f10cfe000b1714209667b8cceab522ff5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/0e83646f10cfe000b1714209667b8cceab522ff5",
+                "reference": "0e83646f10cfe000b1714209667b8cceab522ff5",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qtvhao\\DeviceAccessControl\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Hao Nghiem",
+                    "email": "qtvhao@gmail.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/qtvhao/device-access-control/tree/main",
+                "issues": "https://github.com/qtvhao/device-access-control/issues"
+            },
+            "time": "2024-11-11T07:42:20+00:00"
         },
         {
             "name": "qtvhao/learning-module",
@@ -7866,6 +7899,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "qtvhao/device-access-control": 20,
         "qtvhao/learning-module": 20
     },
     "prefer-stable": true,

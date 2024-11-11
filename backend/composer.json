@@ -8,6 +8,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "qtvhao/device-access-control": "dev-main",
         "qtvhao/learning-module": "dev-main"
     },
     "require-dev": {
@@ -23,6 +24,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/qtvhao/learning-module"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/qtvhao/device-access-control"
         }
     ],
     "autoload": {
