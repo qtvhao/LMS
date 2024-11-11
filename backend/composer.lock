@@ -2897,12 +2897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/device-access-control.git",
-                "reference": "1dc55d72798baa0d822471ffef257b98535c579b"
+                "reference": "7af9d244483316114a70701ceff024e76f32d7c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/1dc55d72798baa0d822471ffef257b98535c579b",
-                "reference": "1dc55d72798baa0d822471ffef257b98535c579b",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/7af9d244483316114a70701ceff024e76f32d7c2",
+                "reference": "7af9d244483316114a70701ceff024e76f32d7c2",
                 "shasum": ""
             },
             "require-dev": {
@@ -2911,14 +2911,21 @@
             },
             "default-branch": true,
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Qtvhao\\DeviceAccessControl\\DeviceAccessControlServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "Qtvhao\\DeviceAccessControl\\": "src/"
+                    "Qtvhao\\DeviceAccessControl\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Qtvhao\\DeviceAccessControl\\Tests\\": "tests/"
+                    "Qtvhao\\DeviceAccessControl\\Tests\\": "tests"
                 }
             },
             "authors": [
@@ -2931,7 +2938,7 @@
                 "source": "https://github.com/qtvhao/device-access-control/tree/main",
                 "issues": "https://github.com/qtvhao/device-access-control/issues"
             },
-            "time": "2024-11-11T14:16:39+00:00"
+            "time": "2024-11-11T19:24:47+00:00"
         },
         {
             "name": "qtvhao/learning-module",
