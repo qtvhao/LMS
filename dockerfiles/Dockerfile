@@ -85,6 +85,7 @@ COPY --from=builder /var/www/html /var/www/html
 
 # Set permissions for Laravel storage and cache directories
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN echo > .env
 
 # Expose the port for PHP-FPM
 EXPOSE 9000
