@@ -60,12 +60,10 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
-    volumes:
-      - ./mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "sleep 20 && mysqladmin ping -h localhost"]
+      test: ["CMD-SHELL", "sleep 20 && mysqladmin ping -h localhost -u laravel -psecret"]
       interval: 10s
-      timeout: 15s
+      timeout: 25s
       retries: 15
     environment:
       MYSQL_ROOT_PASSWORD: root_password
