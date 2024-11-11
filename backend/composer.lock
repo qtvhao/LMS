@@ -2897,12 +2897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/learning-module.git",
-                "reference": "334bea1f115b431a12c08b1ce81166a8e6d950ee"
+                "reference": "728ac95db23f39a6bf00ba5ca07299560a2abfeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/334bea1f115b431a12c08b1ce81166a8e6d950ee",
-                "reference": "334bea1f115b431a12c08b1ce81166a8e6d950ee",
+                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/728ac95db23f39a6bf00ba5ca07299560a2abfeb",
+                "reference": "728ac95db23f39a6bf00ba5ca07299560a2abfeb",
                 "shasum": ""
             },
             "default-branch": true,
@@ -2922,7 +2922,7 @@
                 "source": "https://github.com/qtvhao/learning-module/tree/main",
                 "issues": "https://github.com/qtvhao/learning-module/issues"
             },
-            "time": "2024-11-11T04:59:17+00:00"
+            "time": "2024-11-11T05:16:32+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
