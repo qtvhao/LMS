@@ -1,0 +1,8 @@
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/Dockerfile
+    ports:
+      - "8000:8000"
+    command: php artisan serve
