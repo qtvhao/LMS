@@ -5,4 +5,6 @@ services:
       dockerfile: ./dockerfiles/Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - /root/learning-module:/var/www/html/vendor/qtvhao/learning-module/
     command: php artisan serve
