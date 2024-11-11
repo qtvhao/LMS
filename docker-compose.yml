@@ -26,6 +26,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   feature-test:
     build:
       context: ./
@@ -46,10 +51,10 @@ services:
       - ./storage-logs/:/var/www/html/storage/logs/
     command: [
       "bash", "-c",
-      "php artisan migrate --force && php artisan test"
+      "php artisan test"
     ]
     depends_on:
-      db:
+      backend:
         condition: service_healthy
   db:
     image: mysql:8.0

@@ -64,6 +64,7 @@ FROM debian:12 AS runtime
 
 # Install necessary PHP packages only
 RUN apt-get update && apt-get install -y \
+    curl \
     php8.2-fpm \
     php8.2-cli \
     php8.2-mbstring \
