@@ -60,8 +60,10 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
+    volumes:
+      - ./mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "sleep 10 && mysqladmin ping -h localhost"]
+      test: ["CMD-SHELL", "sleep 20 && mysqladmin ping -h localhost"]
       interval: 10s
       timeout: 15s
       retries: 15
