@@ -51,7 +51,7 @@ services:
       - ./storage-logs/:/var/www/html/storage/logs/
     command: [
       "bash", "-c",
-      "php artisan migrate --path ./vendor/qtvhao/device-access-control/Database/Migrations/ --force && php artisan test"
+      "php artisan migrate:fresh --force --path ./database/migrations/ --path ./vendor/qtvhao/device-access-control/Database/Migrations/ && php artisan test"
     ]
     depends_on:
       backend:
