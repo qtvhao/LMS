@@ -83,5 +83,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Expose the port for PHP-FPM
 EXPOSE 9000
 
+EXPOSE 8000
+
 # Start PHP-FPM
 CMD ["php-fpm8.2", "-F"]
