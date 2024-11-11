@@ -2897,19 +2897,28 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/device-access-control.git",
-                "reference": "0e83646f10cfe000b1714209667b8cceab522ff5"
+                "reference": "1dc55d72798baa0d822471ffef257b98535c579b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/0e83646f10cfe000b1714209667b8cceab522ff5",
-                "reference": "0e83646f10cfe000b1714209667b8cceab522ff5",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/1dc55d72798baa0d822471ffef257b98535c579b",
+                "reference": "1dc55d72798baa0d822471ffef257b98535c579b",
                 "shasum": ""
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6",
+                "phpunit/phpunit": "^11.4"
             },
             "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Qtvhao\\DeviceAccessControl\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Qtvhao\\DeviceAccessControl\\Tests\\": "tests/"
                 }
             },
             "authors": [
@@ -2922,7 +2931,7 @@
                 "source": "https://github.com/qtvhao/device-access-control/tree/main",
                 "issues": "https://github.com/qtvhao/device-access-control/issues"
             },
-            "time": "2024-11-11T07:42:20+00:00"
+            "time": "2024-11-11T14:16:39+00:00"
         },
         {
             "name": "qtvhao/learning-module",

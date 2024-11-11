@@ -38,6 +38,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
+COPY backend/composer.json backend/composer.lock ./
+ARG BUILD_ENV
+# Install PHP dependencies
+RUN if [ "$BUILD_ENV" = "production" ]; then composer install --no-dev --no-scripts; fi
+RUN if [ "$BUILD_ENV" = "testing" ]; then composer install --no-scripts; fi
 # Copy application code
 COPY backend/app app
 COPY backend/tests tests
@@ -51,7 +56,8 @@ COPY backend/storage storage
 COPY backend/artisan backend/postcss.config.js backend/composer.lock backend/phpunit.xml backend/vite.config.js backend/composer.json backend/package.json backend/README.md backend/tailwind.config.js .
 
 # Install PHP dependencies without dev dependencies
-RUN composer install --optimize-autoloader --no-dev
+RUN if [ "$BUILD_ENV" = "production" ]; then composer install --optimize-autoloader --no-dev; fi
+RUN if [ "$BUILD_ENV" = "testing" ]; then composer install --optimize-autoloader; fi
 
 # Second Stage: Runtime
 FROM debian:12 AS runtime
