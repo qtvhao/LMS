@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "589cc0f65c3aaa7d4e9024d545bc1974",
+    "content-hash": "9b7d8a0adeeddd34c453a665bb45bef1",
     "packages": [
         {
             "name": "brick/math",
@@ -2890,6 +2890,39 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.12.4"
             },
             "time": "2024-06-10T01:18:23+00:00"
+        },
+        {
+            "name": "qtvhao/learning-module",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qtvhao/learning-module.git",
+                "reference": "334bea1f115b431a12c08b1ce81166a8e6d950ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/334bea1f115b431a12c08b1ce81166a8e6d950ee",
+                "reference": "334bea1f115b431a12c08b1ce81166a8e6d950ee",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qtvhao\\LearningModule\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Hao Nghiem",
+                    "email": "qtvhao@gmail.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/qtvhao/learning-module/tree/main",
+                "issues": "https://github.com/qtvhao/learning-module/issues"
+            },
+            "time": "2024-11-11T04:59:17+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -7832,7 +7865,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "qtvhao/learning-module": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
