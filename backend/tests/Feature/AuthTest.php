@@ -10,8 +10,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function user_can_register()
+    public function test_user_can_register()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
@@ -24,8 +23,7 @@ class AuthTest extends TestCase
                  ->assertJsonStructure(['user', 'token']);
     }
 
-    /** @test */
-    public function user_can_login_with_valid_credentials()
+    public function test_user_can_login_with_valid_credentials()
     {
         $user = User::factory()->create([
             'password' => bcrypt($password = 'password'),
@@ -40,8 +38,7 @@ class AuthTest extends TestCase
                  ->assertJsonStructure(['token']);
     }
 
-    /** @test */
-    public function user_cannot_login_with_invalid_credentials()
+    public function test_user_cannot_login_with_invalid_credentials()
     {
         $user = User::factory()->create([
             'password' => bcrypt('password'),

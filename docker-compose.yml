@@ -52,6 +52,10 @@ services:
     volumes:
       - /root/learning-module:/var/www/html/vendor/qtvhao/learning-module/
       - /root/device-access-control/:/var/www/html/vendor/qtvhao/device-access-control/
+      - ./backend/app/:/var/www/html/app/
+      - ./backend/routes/:/var/www/html/routes/
+      - ./backend/storage/:/var/www/html/storage/
+      - ./backend/tests/:/var/www/html/tests/
       - ./storage-logs/:/var/www/html/storage/logs/
     command: [
       "bash", "-c",
