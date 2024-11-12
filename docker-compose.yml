@@ -20,6 +20,7 @@ services:
       - /root/device-access-control/:/var/www/html/vendor/qtvhao/device-access-control/
       - ./storage-logs/:/var/www/html/storage/logs/
       - ./backend/routes/:/var/www/html/routes/
+      - ./backend/bootstrap/:/var/www/html/bootstrap/
     command: [
       "bash", "-c",
       "php artisan migrate --force && php artisan migrate --path ./vendor/qtvhao/device-access-control/Database/Migrations/ --force && php artisan serve --host=0.0.0.0 --port=8000"
