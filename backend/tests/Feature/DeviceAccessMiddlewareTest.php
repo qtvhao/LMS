@@ -4,15 +4,18 @@ namespace Tests\Feature;
 
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Qtvhao\DeviceAccessControl\Middleware\DeviceAccessMiddleware;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DeviceAccessMiddlewareTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Set up the facade root
+        \Illuminate\Support\Facades\Facade::setFacadeApplication($this->app);
+    }
    
     /**
      * Test /learning/articles endpoint without token
@@ -92,35 +95,55 @@ class DeviceAccessMiddlewareTest extends TestCase
         $response->assertSeeText('Vượt quá giới hạn thiết bị truy cập');
     }
 
-    public function test_learning_articles_endpoint_exceeds_device_limit_without_mock()
+    #[DataProvider('deviceProvider')]
+    public function test_learning_articles_endpoint_device_limit_exceeded_without_mock($requests)
     {
         // Tạo người dùng và lấy token
         $user = User::factory()->create();
         $token = JWTAuth::fromUser($user);
+        
+        foreach ($requests as $request) {
+            $deviceId = $request->deviceId;
+            $deviceType = $request->deviceType;
+            $expectedStatus = $request->expectedStatus;
+            $expectedMessage = $request->expectedMessage;
 
-        // Tạo mảng các Device-Id và Device-Type để lần lượt kiểm tra
-        $deviceIds = ['device_1', 'device_2', 'device_3', 'device_4'];
-        $deviceTypes = ['Web', 'Tablet', 'Mobile'];
-
-        // Gửi yêu cầu với các cặp Device-Id và Device-Type khác nhau
-        foreach ($deviceIds as $index => $deviceId) {
-            $deviceType = $deviceTypes[$index % count($deviceTypes)]; // Xoay vòng qua các loại thiết bị
-
-            // Gửi yêu cầu với token, Device-Id và Device-Type
+            // Gửi yêu cầu với token và thông tin thiết bị từ dataProvider
             $response = $this->withHeaders([
                 'Authorization' => "Bearer $token",
                 'Device-Id' => $deviceId,
                 'Device-Type' => $deviceType,
             ])->getJson('/learning/articles');
 
-            // Với 3 yêu cầu đầu, mã trạng thái sẽ là 200 OK
-            if ($index < 3) {
-                $response->assertStatus(Response::HTTP_OK);
-            } else {
-                // Ở yêu cầu thứ 4, kiểm tra xem mã trạng thái là 403 Forbidden và có thông báo lỗi
-                $response->assertStatus(Response::HTTP_FORBIDDEN);
-                $response->assertSeeText('Vượt quá giới hạn thiết bị truy cập');
-            }
-        }
+            // Kiểm tra phản hồi mã trạng thái và thông báo lỗi dự kiến
+            $response->assertStatus($expectedStatus);
+            $response->assertSeeText($expectedMessage);
+        }    
+    }
+
+    /**
+     * Data provider for test_learning_articles_endpoint_device_limit_exceeded.
+     *
+     * @return array
+     */
+    public static function deviceProvider()
+    {
+        $suite1 = [
+            (object) ['deviceId' => 'device_1', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''],                 // Lần 1: truy cập hợp lệ
+            (object) ['deviceId' => 'device_2', 'deviceType' => 'Tablet', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''],                 // Lần 2: truy cập hợp lệ
+            (object) ['deviceId' => 'device_3', 'deviceType' => 'Mobile', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''],                // Lần 3: truy cập hợp lệ
+            (object) ['deviceId' => 'device_4', 'deviceType' => 'Mobile', 'expectedStatus' => Response::HTTP_FORBIDDEN, 'expectedMessage' => 'Vượt quá giới hạn thiết bị truy cập'], // Lần 4: vượt quá giới hạn
+        ];
+
+        $suite2 = [
+            (object) ['deviceId' => 'device_1', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''],                 // Lần 1: truy cập hợp lệ
+            (object) ['deviceId' => 'device_1', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''],                 // Lần 2: truy cập hợp lệ
+            (object) ['deviceId' => 'device_2', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_FORBIDDEN, 'expectedMessage' => 'Vượt quá giới hạn thiết bị truy cập'], // Lần 3: vượt quá giới hạn
+        ];
+
+        return [
+            [$suite1],
+            [$suite1],
+        ];
     }
 }
