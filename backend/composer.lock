@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75ea4ebe0e1f2bf76346e5adfad7391f",
+    "content-hash": "bc2e1f8a75da939f6737ead70a0333c1",
     "packages": [
         {
             "name": "brick/math",
@@ -2897,12 +2897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/device-access-control.git",
-                "reference": "fb555e9905d23bf9815d804f2938666b0ad4ea2c"
+                "reference": "d320adb0e0d9d4a83544809cb6f697bff3141b79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/fb555e9905d23bf9815d804f2938666b0ad4ea2c",
-                "reference": "fb555e9905d23bf9815d804f2938666b0ad4ea2c",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/d320adb0e0d9d4a83544809cb6f697bff3141b79",
+                "reference": "d320adb0e0d9d4a83544809cb6f697bff3141b79",
                 "shasum": ""
             },
             "require-dev": {
@@ -2939,7 +2939,7 @@
                 "source": "https://github.com/qtvhao/device-access-control/tree/main",
                 "issues": "https://github.com/qtvhao/device-access-control/issues"
             },
-            "time": "2024-11-12T03:31:38+00:00"
+            "time": "2024-11-12T05:47:31+00:00"
         },
         {
             "name": "qtvhao/learning-module",
@@ -2947,13 +2947,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/learning-module.git",
-                "reference": "728ac95db23f39a6bf00ba5ca07299560a2abfeb"
+                "reference": "b7231c7c8ea871c55b686c3a17732dc33fce91fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/728ac95db23f39a6bf00ba5ca07299560a2abfeb",
-                "reference": "728ac95db23f39a6bf00ba5ca07299560a2abfeb",
+                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/b7231c7c8ea871c55b686c3a17732dc33fce91fc",
+                "reference": "b7231c7c8ea871c55b686c3a17732dc33fce91fc",
                 "shasum": ""
+            },
+            "require": {
+                "qtvhao/device-access-control": "dev-main"
             },
             "default-branch": true,
             "type": "library",
@@ -2972,7 +2975,7 @@
                 "source": "https://github.com/qtvhao/learning-module/tree/main",
                 "issues": "https://github.com/qtvhao/learning-module/issues"
             },
-            "time": "2024-11-11T05:16:32+00:00"
+            "time": "2024-11-12T05:48:02+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -5880,6 +5883,66 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v2.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "d3484d08aaaa84896bdd2d1787e7da0fc03f676f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/d3484d08aaaa84896bdd2d1787e7da0fc03f676f",
+                "reference": "d3484d08aaaa84896bdd2d1787e7da0fc03f676f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^11.0",
+                "illuminate/filesystem": "^11.0",
+                "illuminate/support": "^11.0",
+                "illuminate/validation": "^11.0",
+                "php": "^8.2.0",
+                "symfony/console": "^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2024-10-29T15:11:57+00:00"
         },
         {
             "name": "laravel/pail",
