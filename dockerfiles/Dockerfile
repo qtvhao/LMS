@@ -55,6 +55,8 @@ COPY backend/public public
 COPY backend/storage storage
 COPY backend/artisan backend/postcss.config.js backend/composer.lock backend/phpunit.xml backend/vite.config.js backend/composer.json backend/package.json backend/README.md backend/tailwind.config.js .
 
+RUN mkdir -p /var/www/html/bootstrap/cache
+
 # Install PHP dependencies without dev dependencies
 RUN if [ "$BUILD_ENV" = "production" ]; then composer install --optimize-autoloader --no-dev; fi
 RUN if [ "$BUILD_ENV" = "testing" ]; then composer install --optimize-autoloader; fi
