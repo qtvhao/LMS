@@ -2897,15 +2897,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/device-access-control.git",
-                "reference": "7af9d244483316114a70701ceff024e76f32d7c2"
+                "reference": "fb555e9905d23bf9815d804f2938666b0ad4ea2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/7af9d244483316114a70701ceff024e76f32d7c2",
-                "reference": "7af9d244483316114a70701ceff024e76f32d7c2",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/fb555e9905d23bf9815d804f2938666b0ad4ea2c",
+                "reference": "fb555e9905d23bf9815d804f2938666b0ad4ea2c",
                 "shasum": ""
             },
             "require-dev": {
+                "illuminate/http": "^11.30",
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^11.4"
             },
@@ -2938,7 +2939,7 @@
                 "source": "https://github.com/qtvhao/device-access-control/tree/main",
                 "issues": "https://github.com/qtvhao/device-access-control/issues"
             },
-            "time": "2024-11-11T19:24:47+00:00"
+            "time": "2024-11-12T03:31:38+00:00"
         },
         {
             "name": "qtvhao/learning-module",
