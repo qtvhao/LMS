@@ -33,17 +33,36 @@ class AuthController extends Controller
     // Login user
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
+            'device_type' => 'required|string',
+            'device_id' => 'required|string',
+            'device_name' => 'required|string',
+        ]);
         $credentials = $request->only('email', 'password');
+        $deviceType = $request->input('device_type'); // web, app, tablet
+        $deviceId = $request->input('device_id');
+        $deviceName = $request->input('device_name');
 
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Invalid credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], 500);
+        $isAuthenticated = \Auth::attempt($credentials);
+        if (!$isAuthenticated) {
+            return response()->json(['error' => 'Invalid credentials'], 401);
         }
+        $user = \Auth::user();
 
-        return response()->json(compact('token'));
+        // Tạo JWT với thông tin thiết bị
+        $customClaims = [
+            'device' => [
+                'device_id' => $deviceId,
+                'device_type' => $deviceType,
+                'device_name' => $deviceName,
+            ]
+        ];
+    
+        $token = JWTAuth::claims($customClaims)->fromUser($user);
+    
+        return response()->json(['token' => $token]);
     }
 
     // Logout user

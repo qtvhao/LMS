@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
+use Qtvhao\DeviceAccessControl\Core\Enums\DeviceEnums;
 
 class AuthTest extends TestCase
 {
@@ -32,6 +33,9 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => $password,
+            'device_type' => DeviceEnums::DEVICE_TYPE_WEB,
+            'device_id' => 'web-device-id',
+            'device_name' => 'web-device-name',
         ]);
 
         $response->assertStatus(200)
@@ -47,6 +51,9 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => 'invalid-password',
+            'device_type' => DeviceEnums::DEVICE_TYPE_WEB,
+            'device_id' => 'web-device-id',
+            'device_name' => 'web-device-name',
         ]);
 
         $response->assertStatus(401)
