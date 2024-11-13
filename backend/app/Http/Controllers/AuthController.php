@@ -6,10 +6,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Qtvhao\DeviceAccessControl\Core\UseCases\AddNewDeviceUseCase;
+use Qtvhao\DeviceAccessControl\Core\Data\DeviceData;
 
 class AuthController extends Controller
 {
+    private $addNewDeviceUseCase;
+    public function __construct(AddNewDeviceUseCase $addNewDeviceUseCase)
+    {
+        $this->addNewDeviceUseCase = $addNewDeviceUseCase;
+    }
+
     // Register new user
     public function register(Request $request)
     {
@@ -51,12 +58,19 @@ class AuthController extends Controller
         }
         $user = \Auth::user();
 
+
+        // Step 3: Thêm thiết bị mới vào hệ thống
+        $this->addNewDeviceUseCase->execute(new DeviceData(
+            deviceId: $deviceId,
+            deviceType: $deviceType,
+            userId: $user->id,
+        ));
+
         // Tạo JWT với thông tin thiết bị
         $customClaims = [
-            'device' => [
-                'device_id' => $deviceId,
-                'device_type' => $deviceType,
-                'device_name' => $deviceName,
+            'dev' => [
+                'id' => $deviceId,
+                'type' => $deviceType,
             ]
         ];
     

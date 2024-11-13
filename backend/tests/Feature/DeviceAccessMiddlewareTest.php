@@ -7,6 +7,7 @@ use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Qtvhao\DeviceAccessControl\Core\Enums\DeviceEnums;
 
 class DeviceAccessMiddlewareTest extends TestCase
 {
@@ -15,6 +16,25 @@ class DeviceAccessMiddlewareTest extends TestCase
         parent::setUp();
         // Set up the facade root
         \Illuminate\Support\Facades\Facade::setFacadeApplication($this->app);
+    }
+    /**
+     * Helper function to log in and retrieve a valid token.
+     */
+    protected function getTokenForUser(User $user, $deviceType = DeviceEnums::DEVICE_TYPE_WEB, $deviceId = 'web-device-id')
+    {
+        // Perform login to get the token
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => 'password',
+            'device_type' => $deviceType,
+            'device_id' => $deviceId,
+            'device_name' => 'device-name',
+        ]);
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonStructure(['token']);
+
+        // Extract and return the token from the response
+        return $response->json('token');
     }
    
     /**
@@ -55,9 +75,8 @@ class DeviceAccessMiddlewareTest extends TestCase
 
     public function test_learning_articles_endpoint_with_token_but_missing_device_info()
     {
-        // Tạo người dùng và lấy token hợp lệ
-        $user = User::factory()->create();
-        $token = JWTAuth::fromUser($user);
+        $user = User::factory()->create(['password' => bcrypt('password')]);
+        $token = $this->getTokenForUser($user);
 
         // Gửi yêu cầu với token hợp lệ nhưng thiếu thông tin thiết bị (Device-Id và Device-Type)
         $response = $this->withHeader('Authorization', "Bearer $token")
@@ -72,9 +91,8 @@ class DeviceAccessMiddlewareTest extends TestCase
 
     public function test_learning_articles_endpoint_device_limit_exceeded()
     {
-        // Tạo người dùng và lấy token
-        $user = User::factory()->create();
-        $token = JWTAuth::fromUser($user);
+        $user = User::factory()->create(['password' => bcrypt('password')]);
+        $token = $this->getTokenForUser($user);
 
         // Giả lập giới hạn thiết bị bị vượt quá trong DeviceAccessOrchestrator
         $orchestratorMock = $this->createMock(\Qtvhao\DeviceAccessControl\Core\UseCases\DeviceAccessOrchestrator::class);
@@ -98,9 +116,8 @@ class DeviceAccessMiddlewareTest extends TestCase
     #[DataProvider('deviceProvider')]
     public function test_learning_articles_endpoint_device_limit_exceeded_without_mock($requests)
     {
-        // Tạo người dùng và lấy token
-        $user = User::factory()->create();
-        $token = JWTAuth::fromUser($user);
+        $user = User::factory()->create(['password' => bcrypt('password')]);
+        $token = $this->getTokenForUser($user);
         
         foreach ($requests as $request) {
             $deviceId = $request->deviceId;
