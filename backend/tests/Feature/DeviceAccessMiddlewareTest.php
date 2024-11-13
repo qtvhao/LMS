@@ -20,7 +20,7 @@ class DeviceAccessMiddlewareTest extends TestCase
     /**
      * Helper function to log in and retrieve a valid token.
      */
-    protected function getTokenForUser(User $user, $deviceType = DeviceEnums::DEVICE_TYPE_WEB, $deviceId = 'web-device-id')
+    protected function getTokenForUser(User $user, $deviceType = DeviceEnums::DEVICE_TYPE_WEB_BROWSER, $deviceId = 'web-device-id')
     {
         // Perform login to get the token
         $response = $this->postJson('/api/login', [
@@ -127,16 +127,16 @@ class DeviceAccessMiddlewareTest extends TestCase
     public static function deviceProvider()
     {
         $suite1 = [
-            (object) ['deviceId' => 'device_1', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập bằng thiết bị Web
+            (object) ['deviceId' => 'device_1', 'deviceType' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER, 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập bằng thiết bị Web
             (object) ['deviceId' => 'device_2', 'deviceType' => 'Tablet', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập bằng thiết bị Tablet
             (object) ['deviceId' => 'device_3', 'deviceType' => 'Mobile', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập bằng thiết bị Mobile, không vượt quá giới hạn
             (object) ['deviceId' => 'device_4', 'deviceType' => 'Mobile', 'expectedStatus' => Response::HTTP_FORBIDDEN, 'expectedMessage' => 'Vượt quá giới hạn thiết bị truy cập'], // truy cập bằng thiết bị Mobile, vượt quá giới hạn
         ];
 
         $suite2 = [
-            (object) ['deviceId' => 'device_5', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập
-            (object) ['deviceId' => 'device_5', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // truy cập lại cùng thiết bị, không vượt quá giới hạn
-            (object) ['deviceId' => 'device_6', 'deviceType' => 'Web', 'expectedStatus' => Response::HTTP_FORBIDDEN, 'expectedMessage' => 'Vượt quá giới hạn thiết bị truy cập'], // truy cập với thiết bị mới, loại thiết bị giống như thiết bị trước đó, vượt quá giới hạn
+            (object) ['deviceId' => 'device_5', 'deviceType' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER, 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // lần đầu tiên truy cập
+            (object) ['deviceId' => 'device_5', 'deviceType' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER, 'expectedStatus' => Response::HTTP_OK, 'expectedMessage' => ''], // truy cập lại cùng thiết bị, không vượt quá giới hạn
+            (object) ['deviceId' => 'device_6', 'deviceType' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER, 'expectedStatus' => Response::HTTP_FORBIDDEN, 'expectedMessage' => 'Vượt quá giới hạn thiết bị truy cập'], // truy cập với thiết bị mới, loại thiết bị giống như thiết bị trước đó, vượt quá giới hạn
         ];
 
         return [

@@ -33,7 +33,7 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => $password,
-            'device_type' => DeviceEnums::DEVICE_TYPE_WEB,
+            'device_type' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER,
             'device_id' => 'web-device-id',
             'device_name' => 'web-device-name',
         ]);
@@ -51,7 +51,7 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => 'invalid-password',
-            'device_type' => DeviceEnums::DEVICE_TYPE_WEB,
+            'device_type' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER,
             'device_id' => 'web-device-id',
             'device_name' => 'web-device-name',
         ]);
