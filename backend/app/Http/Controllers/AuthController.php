@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Qtvhao\DeviceAccessControl\Core\UseCases\AddNewDeviceUseCase;
+use Qtvhao\DeviceAccessControl\Core\UseCases\DeviceAccessOrchestrator;
 use Qtvhao\DeviceAccessControl\Core\Data\DeviceData;
 
 class AuthController extends Controller
 {
-    private $addNewDeviceUseCase;
-    public function __construct(AddNewDeviceUseCase $addNewDeviceUseCase)
+    protected $orchestrator;
+
+    public function __construct(DeviceAccessOrchestrator $orchestrator)
     {
-        $this->addNewDeviceUseCase = $addNewDeviceUseCase;
+        $this->orchestrator = $orchestrator;
     }
 
     // Register new user
@@ -40,13 +42,17 @@ class AuthController extends Controller
     // Login user
     public function login(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
             'device_type' => 'required|string',
             'device_id' => 'required|string',
             'device_name' => 'required|string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
         $credentials = $request->only('email', 'password');
         $deviceType = $request->input('device_type'); // web, app, tablet
         $deviceId = $request->input('device_id');
@@ -58,13 +64,14 @@ class AuthController extends Controller
         }
         $user = \Auth::user();
 
-
-        // Step 3: Thêm thiết bị mới vào hệ thống
-        $this->addNewDeviceUseCase->execute(new DeviceData(
+        // Kiểm tra quyền truy cập thiết bị
+        $deviceData = new DeviceData(
             deviceId: $deviceId,
             deviceType: $deviceType,
+            deviceName: $deviceName,
             userId: $user->id,
-        ));
+        );
+        $this->orchestrator->execute($deviceData);
 
         // Tạo JWT với thông tin thiết bị
         $customClaims = [

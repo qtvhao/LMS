@@ -63,30 +63,15 @@ class DeviceAccessMiddlewareTest extends TestCase
         ];
         $invalid_token = JWTAuth::factory()->customClaims($payload)->make();
         // Thêm một token không hợp lệ vào header
-        $response = $this->withHeader('Authorization', 'Bearer ' . JWTAuth::encode($invalid_token))
-                         ->getJson('/learning/articles');
+        $response = $this
+            ->withHeader('Authorization', 'Bearer ' . JWTAuth::encode($invalid_token))
+            ->getJson('/learning/articles');
 
         // Kiểm tra phản hồi có mã trạng thái 401 Unauthorized
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
 
         // Kiểm tra thông báo lỗi trong phản hồi
         $response->assertSeeText('Không có quyền truy cập');
-    }
-
-    public function test_learning_articles_endpoint_with_token_but_missing_device_info()
-    {
-        $user = User::factory()->create(['password' => bcrypt('password')]);
-        $token = $this->getTokenForUser($user);
-
-        // Gửi yêu cầu với token hợp lệ nhưng thiếu thông tin thiết bị (Device-Id và Device-Type)
-        $response = $this->withHeader('Authorization', "Bearer $token")
-                         ->getJson('/learning/articles');
-
-        // Kiểm tra phản hồi có mã trạng thái 400 Bad Request
-        $response->assertStatus(Response::HTTP_BAD_REQUEST);
-
-        // Kiểm tra thông báo lỗi trong phản hồi
-        $response->assertSeeText('Thiếu thông tin thiết bị');
     }
 
     public function test_learning_articles_endpoint_device_limit_exceeded()
@@ -102,8 +87,6 @@ class DeviceAccessMiddlewareTest extends TestCase
         // Gửi yêu cầu với token và giả lập vượt quá giới hạn thiết bị
         $response = $this->withHeaders([
             'Authorization' => "Bearer $token",
-            'Device-Id' => 'device_123',
-            'Device-Type' => 'mobile',
         ])->getJson('/learning/articles');
 
         // Kiểm tra phản hồi có mã trạng thái 403 Forbidden
@@ -117,19 +100,17 @@ class DeviceAccessMiddlewareTest extends TestCase
     public function test_learning_articles_endpoint_device_limit_exceeded_without_mock($requests)
     {
         $user = User::factory()->create(['password' => bcrypt('password')]);
-        $token = $this->getTokenForUser($user);
-        
+
         foreach ($requests as $request) {
             $deviceId = $request->deviceId;
             $deviceType = $request->deviceType;
             $expectedStatus = $request->expectedStatus;
             $expectedMessage = $request->expectedMessage;
 
+            $token = $this->getTokenForUser($user, $deviceType, $deviceId);
             // Gửi yêu cầu với token và thông tin thiết bị từ dataProvider
             $response = $this->withHeaders([
                 'Authorization' => "Bearer $token",
-                'Device-Id' => $deviceId,
-                'Device-Type' => $deviceType,
             ])->getJson('/learning/articles');
 
             // Kiểm tra phản hồi mã trạng thái và thông báo lỗi dự kiến
