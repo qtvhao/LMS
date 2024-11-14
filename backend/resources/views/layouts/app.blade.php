@@ -10,7 +10,7 @@
 
     <header class="bg-blue-600 p-4 shadow-lg text-white">
         <div class="container mx-auto">
-            <h1 class="text-2xl font-bold">My Application</h1>
+            <h1 class="text-2xl font-bold">Prep Learning</h1>
         </div>
     </header>
 
@@ -19,7 +19,7 @@
     </main>
 
     <footer class="bg-gray-800 text-white mt-10 p-4 text-center">
-        <p>&copy; 2024 My Application</p>
+        <p>&copy; 2024 Prep Learning</p>
     </footer>
 
 </body>
