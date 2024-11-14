@@ -20,6 +20,7 @@ services:
       - /root/learning-module:/var/www/html/vendor/qtvhao/learning-module/
       - /root/device-access-control/:/var/www/html/vendor/qtvhao/device-access-control/
       - ./storage-logs/:/var/www/html/storage/logs/
+      - ./backend/app/:/var/www/html/app/
       - ./backend/routes/:/var/www/html/routes/
       - ./backend/resources/:/var/www/html/resources/
     command: [

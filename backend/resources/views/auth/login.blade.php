@@ -6,15 +6,15 @@
     <!-- Tạo container cho Vue instance -->
     <div id="app" class="max-w-md mx-auto bg-white p-8 border border-gray-300 shadow-lg rounded-lg">
         <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Login</h2>
-        <form method="POST" action="/api/login">
+        <form @submit.prevent="login"> <!-- Gọi hàm login khi submit -->
             @csrf
             <div class="mb-4">
                 <label for="email" class="block text-gray-700">Email:</label>
-                <input type="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+                <input type="email" name="email" v-model="email" class="w-full px-3 py-2 border border-gray-300 rounded" required>
             </div>
             <div class="mb-4">
                 <label for="password" class="block text-gray-700">Password:</label>
-                <input type="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+                <input type="password" name="password" v-model="password" class="w-full px-3 py-2 border border-gray-300 rounded" required>
             </div>
 
             <!-- Device Type Radio Buttons -->
@@ -48,27 +48,54 @@
         </form>
     </div>
 
-    <!-- Import Vue.js và uuid từ CDN -->
+    <!-- Import Vue.js, Axios, và uuid từ CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script>
         new Vue({
             el: '#app',
             data: {
-                deviceType: 'web',                          // Mặc định là 'web'
-                deviceUuid: '',                             // Sẽ được gán UUID từ localStorage hoặc tạo mới
-                deviceName: navigator.userAgent             // Lấy User-Agent mặc định
+                email: '',
+                password: '',
+                deviceType: 'web',                     // Mặc định là 'web'
+                deviceUuid: '',                        // Sẽ được gán UUID từ localStorage hoặc tạo mới
+                deviceName: navigator.userAgent        // Lấy User-Agent mặc định
             },
             created() {
                 // Kiểm tra nếu UUID tồn tại trong localStorage
                 const savedUuid = localStorage.getItem('device_uuid');
                 if (savedUuid) {
-                    // Nếu tồn tại, dùng UUID từ localStorage
                     this.deviceUuid = savedUuid;
                 } else {
-                    // Nếu không, tạo UUID mới và lưu vào localStorage
                     this.deviceUuid = uuid.v4();
                     localStorage.setItem('device_uuid', this.deviceUuid);
+                }
+            },
+            methods: {
+                login() {
+                    // Gửi request login qua Axios
+                    axios.post('/api/login', {
+                        email: this.email,
+                        password: this.password,
+                        device_type: this.deviceType,
+                        device_uuid: this.deviceUuid,
+                        device_name: this.deviceName
+                    })
+                    .then(response => {
+                        // Xử lý thành công: có thể lưu token hoặc chuyển hướng
+                        alert('Login successful!');
+                        console.log(response.data);
+                        // Ví dụ: lưu token vào localStorage
+                        localStorage.setItem('token', response.data.token);
+                        // Chuyển hướng (nếu cần)
+                        window.location.href = '/';
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi (ví dụ: hiển thị lỗi đăng nhập)
+                        console.error(error);
+                        alert('Login failed! Please check your credentials.');
+                    });
                 }
             }
         });
