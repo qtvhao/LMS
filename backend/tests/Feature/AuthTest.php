@@ -34,7 +34,7 @@ class AuthTest extends TestCase
             'email' => $user->email,
             'password' => $password,
             'device_type' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER,
-            'device_id' => 'web-device-id',
+            'device_uuid' => 'web-device-id',
             'device_name' => 'web-device-name',
         ]);
 
@@ -52,11 +52,12 @@ class AuthTest extends TestCase
             'email' => $user->email,
             'password' => 'invalid-password',
             'device_type' => DeviceEnums::DEVICE_TYPE_WEB_BROWSER,
-            'device_id' => 'web-device-id',
+            'device_uuid' => 'web-device-id',
             'device_name' => 'web-device-name',
         ]);
 
-        $response->assertStatus(401)
-                 ->assertJson(['error' => 'Invalid credentials']);
+        $response
+                ->assertContent('{"error":"Invalid credentials"}')
+                ->assertStatus(401);
     }
 }

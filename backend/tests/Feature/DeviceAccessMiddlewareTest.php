@@ -27,7 +27,7 @@ class DeviceAccessMiddlewareTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
             'device_type' => $deviceType,
-            'device_id' => $deviceId,
+            'device_uuid' => $deviceId,
             'device_name' => 'device-name',
         ]);
         $response->assertStatus(Response::HTTP_OK);
@@ -49,7 +49,7 @@ class DeviceAccessMiddlewareTest extends TestCase
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
 
         // Kiểm tra thông báo lỗi trong phản hồi
-        $response->assertSeeText('The token could not be parsed from the request');
+        $response->assertSeeText('Token không tồn tại trong request');
     }
 
 

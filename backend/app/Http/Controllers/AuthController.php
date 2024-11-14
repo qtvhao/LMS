@@ -46,7 +46,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
             'device_type' => 'required|string',
-            'device_id' => 'required|string',
+            'device_uuid' => 'required|string',
             'device_name' => 'required|string',
         ]);
 
@@ -55,7 +55,7 @@ class AuthController extends Controller
         }
         $credentials = $request->only('email', 'password');
         $deviceType = $request->input('device_type'); // web, app, tablet
-        $deviceId = $request->input('device_id');
+        $deviceUuid = $request->input('device_uuid');
         $deviceName = $request->input('device_name');
 
         $isAuthenticated = \Auth::attempt($credentials);
@@ -66,7 +66,7 @@ class AuthController extends Controller
 
         // Kiểm tra quyền truy cập thiết bị
         $deviceData = new DeviceData(
-            deviceId: $deviceId,
+            deviceUuid: $deviceUuid,
             deviceType: $deviceType,
             deviceName: $deviceName,
             userId: $user->id,
@@ -76,7 +76,7 @@ class AuthController extends Controller
         // Tạo JWT với thông tin thiết bị
         $customClaims = [
             'dev' => [
-                'id' => $deviceId,
+                'uuid' => $deviceUuid,
                 'type' => $deviceType,
             ]
         ];
