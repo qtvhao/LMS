@@ -21,14 +21,14 @@
             <div class="mb-4">
                 <label class="block text-gray-700 mb-2">Device Type:</label>
                 <div class="flex items-center">
-                    <input type="radio" name="device_type" value="web" id="device_type_web" v-model="deviceType" class="mr-2">
-                    <label for="device_type_web" class="mr-4 text-gray-700">Web</label>
+                    <input type="radio" name="device_type" value="Web Browser" id="device_type_web" v-model="deviceType" class="mr-2">
+                    <label for="device_type_web" class="mr-4 text-gray-700">Web Browser</label>
 
-                    <input type="radio" name="device_type" value="app" id="device_type_app" v-model="deviceType" class="mr-2">
-                    <label for="device_type_app" class="mr-4 text-gray-700">App</label>
+                    <input type="radio" name="device_type" value="Tablet" id="device_type_tablet" v-model="deviceType" class="mr-2">
+                    <label for="device_type_app" class="mr-4 text-gray-700">Tablet</label>
 
-                    <input type="radio" name="device_type" value="tablet" id="device_type_tablet" v-model="deviceType" class="mr-2">
-                    <label for="device_type_tablet" class="text-gray-700">Tablet</label>
+                    <input type="radio" name="device_type" value="Mobile" id="device_type_mobile" v-model="deviceType" class="mr-2">
+                    <label for="device_type_tablet" class="text-gray-700">Mobile</label>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
             data: {
                 email: '',
                 password: '',
-                deviceType: 'web',                     // Mặc định là 'web'
+                deviceType: 'Web Browser',            // Mặc định chọn Web Browser
                 deviceUuid: '',                        // Sẽ được gán UUID từ localStorage hoặc tạo mới
                 deviceName: navigator.userAgent        // Lấy User-Agent mặc định
             },
@@ -89,7 +89,7 @@
                         // Ví dụ: lưu token vào localStorage
                         localStorage.setItem('token', response.data.token);
                         // Chuyển hướng (nếu cần)
-                        window.location.href = '/';
+                        window.location.href = '/learning';
                     })
                     .catch(error => {
                         // Xử lý lỗi (ví dụ: hiển thị lỗi đăng nhập)

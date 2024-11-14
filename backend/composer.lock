@@ -3037,12 +3037,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/device-access-control.git",
-                "reference": "b6139eac9ab5907d38812bec2ac9a3288398285f"
+                "reference": "4caf564516a31bf31585c957692b91724ab39772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/b6139eac9ab5907d38812bec2ac9a3288398285f",
-                "reference": "b6139eac9ab5907d38812bec2ac9a3288398285f",
+                "url": "https://api.github.com/repos/qtvhao/device-access-control/zipball/4caf564516a31bf31585c957692b91724ab39772",
+                "reference": "4caf564516a31bf31585c957692b91724ab39772",
                 "shasum": ""
             },
             "require": {
@@ -3082,7 +3082,7 @@
                 "source": "https://github.com/qtvhao/device-access-control/tree/main",
                 "issues": "https://github.com/qtvhao/device-access-control/issues"
             },
-            "time": "2024-11-14T02:48:20+00:00"
+            "time": "2024-11-14T03:03:17+00:00"
         },
         {
             "name": "qtvhao/learning-module",
@@ -3090,12 +3090,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/qtvhao/learning-module.git",
-                "reference": "0359f623931bd231e9d5c11f0b7c50dbdcfaee4f"
+                "reference": "4cff0fb42094c031e56a4dc384bc3d695d9105a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/0359f623931bd231e9d5c11f0b7c50dbdcfaee4f",
-                "reference": "0359f623931bd231e9d5c11f0b7c50dbdcfaee4f",
+                "url": "https://api.github.com/repos/qtvhao/learning-module/zipball/4cff0fb42094c031e56a4dc384bc3d695d9105a7",
+                "reference": "4cff0fb42094c031e56a4dc384bc3d695d9105a7",
                 "shasum": ""
             },
             "require": {
@@ -3118,7 +3118,7 @@
                 "source": "https://github.com/qtvhao/learning-module/tree/main",
                 "issues": "https://github.com/qtvhao/learning-module/issues"
             },
-            "time": "2024-11-13T05:48:04+00:00"
+            "time": "2024-11-14T06:01:48+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
